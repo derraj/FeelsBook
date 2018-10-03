@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FeelsBookActivity">
+
+    <Button
+        android:id="@+id/loveBtn"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Love"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/angerBtn"
+        app:layout_constraintTop_toBottomOf="@+id/joyBtn" />
+
+    <Button
+        android:id="@+id/joyBtn"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Joy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/fearBtn"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <Button
+        android:id="@+id/supriseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Suprise"
+        app:layout_constraintEnd_toStartOf="@+id/fearBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <Button
+        android:id="@+id/angerBtn"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Anger"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fearBtn"
+        app:layout_constraintVertical_bias="0.282"
+        tools:layout_editor_absoluteX="148dp" />
+
+    <Button
+        android:id="@+id/sadBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Sad"
+        app:layout_constraintEnd_toStartOf="@+id/angerBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/supriseBtn" />
+
+    <Button
+        android:id="@+id/fearBtn"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="344dp"
+        android:text="Fear"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="148dp" />
+
+</android.support.constraint.ConstraintLayout>
