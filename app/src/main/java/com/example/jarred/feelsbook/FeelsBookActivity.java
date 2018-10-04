@@ -19,14 +19,15 @@ import java.util.List;
 public class FeelsBookActivity extends AppCompatActivity {
     public ArrayList<Emotion> emoList = new ArrayList<>();
     public List<String> emotionList = Arrays.asList("Surprise", "Fear", "Sad","Joy","Anger","Love");
-    public Counter count = new Counter(emotionList);
-    public ArrayList<Counter> counter_list;
+    public Counter count;
+    public TextView surpriseNum,sadNum,joyNum,angerNum,loveNum,fearNum;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feels_book);
-        //counter_list = new ArrayList<>();
+        //count = new Counter(emotionList);
         loadData();
+
 
         Button surpriseBtn = (Button) findViewById(R.id.surpriseBtn);
         Button fearBtn = (Button) findViewById(R.id.fearBtn);
@@ -36,12 +37,14 @@ public class FeelsBookActivity extends AppCompatActivity {
         Button loveBtn = (Button) findViewById(R.id.loveBtn);
         Button historyBtn = (Button) findViewById(R.id.historyBtn);
 
-        final TextView surpriseNum = (TextView) findViewById(R.id.surpriseNum);
-        final TextView sadNum = (TextView) findViewById(R.id.sadNum);
-        final TextView joyNum = (TextView) findViewById(R.id.joyNum);
-        final TextView angerNum = (TextView) findViewById(R.id.angerNum);
-        final TextView loveNum = (TextView) findViewById(R.id.loveNum);
-        final TextView fearNum = (TextView) findViewById(R.id.fearNum);
+        surpriseNum = (TextView) findViewById(R.id.surpriseNum);
+        sadNum = (TextView) findViewById(R.id.sadNum);
+        joyNum = (TextView) findViewById(R.id.joyNum);
+        angerNum = (TextView) findViewById(R.id.angerNum);
+        loveNum = (TextView) findViewById(R.id.loveNum);
+        fearNum = (TextView) findViewById(R.id.fearNum);
+
+        update();
 
         surpriseBtn.setTag("Surprise");
         fearBtn.setTag("Fear");
@@ -59,26 +62,7 @@ public class FeelsBookActivity extends AppCompatActivity {
                 emoList.add(emotion);
                 count.increment(tagString);
                 saveData();
-
-                if (tagString.equals("Surprise")){
-                    surpriseNum.setText(count.val(tagString));
-                }
-                else if (tagString.equals("Sad")){
-                    sadNum.setText(count.val(tagString));
-                }
-                else if (tagString.equals("Joy")){
-                    joyNum.setText(count.val(tagString));
-                }
-                else if (tagString.equals("Anger")){
-                    angerNum.setText(count.val(tagString));
-                }
-                else if (tagString.equals("Love")){
-                    loveNum.setText(count.val(tagString));
-                }
-                else if (tagString.equals("Fear")){
-                    fearNum.setText(count.val(tagString));
-                }
-
+                update();
             }
         };
 
@@ -113,7 +97,7 @@ public class FeelsBookActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(counter_list);
+        String json = gson.toJson(count);
         editor.putString("counter object", json);
         editor.apply();
     }
@@ -122,12 +106,17 @@ public class FeelsBookActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("counter object", null);
-        Type type = new TypeToken<ArrayList<Counter>>(){}.getType();
-        counter_list = gson.fromJson(json, type);
+        count = gson.fromJson(json, Counter.class);
 
-        if (count == null){
-            counter_list = new ArrayList<>();
-        }
+    }
+
+    private void update(){
+        surpriseNum.setText(count.val("Surprise"));
+        sadNum.setText(count.val("Sad"));
+        joyNum.setText(count.val("Joy"));
+        angerNum.setText(count.val("Anger"));
+        loveNum.setText(count.val("Love"));
+        fearNum.setText(count.val("Fear"));
     }
 
 }

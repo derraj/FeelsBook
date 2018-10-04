@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Counter extends AppCompatActivity {
+public class Counter{
     private Map<String, Integer> count;
     private List<String> emotionList;
 
