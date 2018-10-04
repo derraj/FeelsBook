@@ -9,80 +9,128 @@
     <Button
         android:id="@+id/loveBtn"
         android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:text="Love"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/angerBtn"
-        app:layout_constraintTop_toBottomOf="@+id/joyBtn" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/angerBtn"
+        app:layout_constraintStart_toEndOf="@+id/angerBtn" />
 
     <Button
         android:id="@+id/joyBtn"
         android:layout_width="88dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:text="Joy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/fearBtn"
-        tools:layout_editor_absoluteY="347dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/sadBtn"
+        app:layout_constraintStart_toEndOf="@+id/sadBtn" />
 
     <Button
-        android:id="@+id/supriseBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/surpriseBtn"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
         android:text="Suprise"
-        app:layout_constraintEnd_toStartOf="@+id/fearBtn"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="347dp" />
+        app:layout_constraintBottom_toTopOf="@+id/sadBtn"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/angerBtn"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="24dp"
         android:text="Anger"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fearBtn"
-        app:layout_constraintVertical_bias="0.282"
-        tools:layout_editor_absoluteX="148dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sadBtn" />
 
     <Button
         android:id="@+id/sadBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
         android:text="Sad"
-        app:layout_constraintEnd_toStartOf="@+id/angerBtn"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/supriseBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/fearBtn"
-        android:layout_width="0dp"
+        android:layout_width="88dp"
         android:layout_height="48dp"
-        android:layout_marginTop="344dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:text="Fear"
+        app:layout_constraintBaseline_toBaselineOf="@+id/surpriseBtn"
+        app:layout_constraintStart_toEndOf="@+id/surpriseBtn" />
+
+    <EditText
+        android:layout_width="260dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="(Optional) Enter a comment..."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/angerBtn"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <Button
+        android:id="@+id/historyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="History"
+        app:layout_constraintBottom_toTopOf="@+id/fearBtn"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="See your past emotions"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/historyBtn"
+        app:layout_constraintEnd_toEndOf="@+id/historyBtn"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="@+id/historyBtn"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="148dp" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Record new emotion"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/fearBtn"
+        app:layout_constraintEnd_toEndOf="@+id/fearBtn"
+        app:layout_constraintStart_toStartOf="@+id/surpriseBtn" />
 
 </android.support.constraint.ConstraintLayout>
