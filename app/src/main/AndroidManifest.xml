@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".Counter"></activity>
+</application>
 
 </manifest>

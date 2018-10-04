@@ -6,6 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".FeelsBookActivity">
 
+    <TextView
+        android:id="@+id/fearNum"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fearBtn"
+        app:layout_constraintStart_toEndOf="@+id/fearBtn" />
+
+    <TextView
+        android:id="@+id/angerNum"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/angerBtn"
+        android:gravity="end"
+        app:layout_constraintEnd_toStartOf="@+id/angerBtn" />
+
+    <TextView
+        android:id="@+id/joyNum"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/joyBtn"
+        app:layout_constraintStart_toEndOf="@+id/joyBtn" />
+
+    <TextView
+        android:id="@+id/loveNum"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/loveBtn"
+        app:layout_constraintStart_toEndOf="@+id/loveBtn" />
+
     <Button
         android:id="@+id/loveBtn"
         android:layout_width="88dp"
@@ -13,6 +50,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
         android:text="Love"
+
         app:layout_constraintBaseline_toBaselineOf="@+id/angerBtn"
         app:layout_constraintStart_toEndOf="@+id/angerBtn" />
 
@@ -33,7 +71,8 @@
         android:layout_marginBottom="24dp"
         android:layout_marginLeft="80dp"
         android:layout_marginStart="80dp"
-        android:text="Suprise"
+        android:text="Surpirse"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/sadBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -111,7 +150,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="See your past emotions"
+        android:text="@string/top_string"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/historyBtn"
         app:layout_constraintEnd_toEndOf="@+id/historyBtn"
@@ -127,10 +166,30 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="Record new emotion"
+        android:text="@string/second_string"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/fearBtn"
         app:layout_constraintEnd_toEndOf="@+id/fearBtn"
         app:layout_constraintStart_toStartOf="@+id/surpriseBtn" />
+
+    <TextView
+        android:id="@+id/sadNum"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="end"
+        app:layout_constraintBaseline_toBaselineOf="@+id/sadBtn"
+        app:layout_constraintEnd_toStartOf="@+id/sadBtn" />
+
+    <TextView
+        android:id="@+id/surpriseNum"
+        android:layout_width="52dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="end"
+        app:layout_constraintBaseline_toBaselineOf="@+id/surpriseBtn"
+        app:layout_constraintEnd_toStartOf="@+id/surpriseBtn" />
 
 </android.support.constraint.ConstraintLayout>

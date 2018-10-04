@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">mahinay-FeelsBook</string>
+    <string name="top_string">See your past emotions</string>
+    <string name="second_string">Record new emotion</string>
 </resources>
