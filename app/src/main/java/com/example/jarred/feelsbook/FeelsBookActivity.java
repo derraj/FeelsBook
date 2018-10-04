@@ -76,13 +76,13 @@ public class FeelsBookActivity extends AppCompatActivity {
         View.OnClickListener historyListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                for (Emotion s : emoList){
-                    Log.d("My array list content: ", s.getEmotion());
-
-                }
-                */
                 Intent openHistory = new Intent(getApplicationContext(), ListActivity.class);
+
+                // Pass list of emotion objects by using serializable
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("emoList", emoList);
+                openHistory.putExtras(bundle);
+
                 startActivity(openHistory);
             }
         };

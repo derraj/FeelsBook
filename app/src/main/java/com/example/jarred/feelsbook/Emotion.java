@@ -1,8 +1,9 @@
 package com.example.jarred.feelsbook;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Emotion {
+public class Emotion implements Serializable{
     private Date date;
     private String comment;
     private String emotion;
@@ -31,6 +32,11 @@ public class Emotion {
 
     public String getEmotion(){
         return this.emotion;
+    }
+
+    public String toString(){
+        return ("Emotion: "+this.getEmotion() + " Date: " + this.getDate()
+        + " Comment : " + this.getComment());
     }
 
 }
