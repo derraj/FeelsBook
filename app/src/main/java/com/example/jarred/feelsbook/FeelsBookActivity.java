@@ -1,12 +1,17 @@
 package com.example.jarred.feelsbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,10 +19,14 @@ import java.util.List;
 public class FeelsBookActivity extends AppCompatActivity {
     public ArrayList<Emotion> emoList = new ArrayList<>();
     public List<String> emotionList = Arrays.asList("Surprise", "Fear", "Sad","Joy","Anger","Love");
+    public Counter count = new Counter(emotionList);
+    public ArrayList<Counter> counter_list;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feels_book);
+        //counter_list = new ArrayList<>();
+        loadData();
 
         Button surpriseBtn = (Button) findViewById(R.id.surpriseBtn);
         Button fearBtn = (Button) findViewById(R.id.fearBtn);
@@ -41,7 +50,7 @@ public class FeelsBookActivity extends AppCompatActivity {
         angerBtn.setTag("Anger");
         loveBtn.setTag("Love");
 
-        final Counter count = new Counter(emotionList);
+
         View.OnClickListener onClickListener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +58,7 @@ public class FeelsBookActivity extends AppCompatActivity {
                 Emotion emotion = new Emotion(tagString, "Message");
                 emoList.add(emotion);
                 count.increment(tagString);
+                saveData();
 
                 if (tagString.equals("Surprise")){
                     surpriseNum.setText(count.val(tagString));
@@ -98,4 +108,26 @@ public class FeelsBookActivity extends AppCompatActivity {
 
 
     }
+
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(counter_list);
+        editor.putString("counter object", json);
+        editor.apply();
+    }
+
+    private void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("counter object", null);
+        Type type = new TypeToken<ArrayList<Counter>>(){}.getType();
+        counter_list = gson.fromJson(json, type);
+
+        if (count == null){
+            counter_list = new ArrayList<>();
+        }
+    }
+
 }
