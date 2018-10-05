@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class FeelsBookActivity extends AppCompatActivity {
@@ -79,6 +80,7 @@ public class FeelsBookActivity extends AppCompatActivity {
         angerBtn.setOnClickListener(onClickListener);
         loveBtn.setOnClickListener(onClickListener);
 
+
         View.OnClickListener historyListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,18 +99,20 @@ public class FeelsBookActivity extends AppCompatActivity {
 
 
 
+
     }
 
     // Save count object and emoList array list
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
+        // Save the counter
         Gson gson = new Gson();
         String json = gson.toJson(count);
         editor.putString("counter object", json);
         editor.apply();
 
+        // Save the Emotion list
         String json2 = gson.toJson(emoList);
         editor.putString("emotion object list", json2);
         editor.apply();

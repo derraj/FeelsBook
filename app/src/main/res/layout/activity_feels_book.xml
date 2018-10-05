@@ -118,13 +118,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
+        android:ems="100"
         android:hint="(Optional) Enter a comment..."
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/angerBtn"
+        android:maxLength="10"
         app:layout_constraintVertical_bias="0.531" />
 
     <Button
