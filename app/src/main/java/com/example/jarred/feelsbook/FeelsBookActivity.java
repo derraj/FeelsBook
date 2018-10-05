@@ -22,6 +22,8 @@ public class FeelsBookActivity extends AppCompatActivity {
     public List<String> emotionList = Arrays.asList("Surprise", "Fear", "Sad","Joy","Anger","Love");
     public Counter count;
     public TextView surpriseNum,sadNum,joyNum,angerNum,loveNum,fearNum;
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +67,6 @@ public class FeelsBookActivity extends AppCompatActivity {
                 EditText message = (EditText)findViewById(R.id.message);
                 Emotion emotion = new Emotion(tagString, message.getText().toString());
                 emoList.add(emotion);
-                count.increment(tagString);
                 saveData();
                 update();
             }
@@ -84,9 +85,9 @@ public class FeelsBookActivity extends AppCompatActivity {
                 Intent openHistory = new Intent(getApplicationContext(), ListActivity.class);
 
                 // Pass list of emotion objects by using serializable
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("emoList", emoList);
-                openHistory.putExtras(bundle);
+                Bundle emo_bundle = new Bundle();
+                emo_bundle.putSerializable("emoList", emoList);
+                openHistory.putExtras(emo_bundle);
 
                 startActivity(openHistory);
             }
@@ -99,7 +100,7 @@ public class FeelsBookActivity extends AppCompatActivity {
     }
 
     // Save count object and emoList array list
-    private void saveData(){
+    public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -137,8 +138,10 @@ public class FeelsBookActivity extends AppCompatActivity {
     }
 
     private void update(){
-        if (count == null){
-            count = new Counter(emotionList);
+        count = new Counter(emotionList);
+
+        for (Emotion e : emoList){
+            count.increment(e.getEmotion());
         }
 
         surpriseNum.setText(count.val("Surprise"));

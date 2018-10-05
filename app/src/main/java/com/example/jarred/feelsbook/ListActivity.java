@@ -1,6 +1,7 @@
 package com.example.jarred.feelsbook;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +27,7 @@ public class ListActivity extends AppCompatActivity {
 
     public ArrayList<Emotion> emoList;
     public List<String> emoString;
+    public Counter count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +75,27 @@ public class ListActivity extends AppCompatActivity {
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    //String emo_string = emoList.get(position).getEmotion();
+                    //count.decrement(emo_string);
+                    SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
                     emoList.remove(position);
                     emoString.remove(position);
                     notifyDataSetChanged();
+
+                    Gson gson = new Gson();
+
+                    String json2 = gson.toJson(emoList);
+                    editor.putString("emotion object list", json2);
+                    editor.apply();
                 }
             });
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Edit was clicked for list item" + position, Toast.LENGTH_SHORT).show();
+
                 }
             });
             mainViewholder.title.setText(getItem(position));

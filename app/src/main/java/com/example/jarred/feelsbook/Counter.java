@@ -2,11 +2,12 @@ package com.example.jarred.feelsbook;
 
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Counter{
+public class Counter implements Serializable{
     private Map<String, Integer> count;
     private List<String> emotionList;
 
@@ -18,9 +19,6 @@ public class Counter{
 
     public void increment(String emotion){
         this.count.put(emotion, this.count.get(emotion)+1);
-    }
-    public void decrement(String emotion){
-        this.count.put(emotion, this.count.get(emotion)-1);
     }
 
     public String val(String emotion){
