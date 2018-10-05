@@ -1,0 +1,12 @@
+FeelsBookActivity is the main activity. That is where we create our Emotion and Counter objects.
+Each Emotion object we create is stored in an ArrayList, and the Counter and Emotion ArrayList are 
+accessible by ListActivity. The Emotion ArrayList and Counter are also saved with Gson.
+
+In ListActivity, we create an Adapter to handle the ListView. The ListActivity uses our Emotion ArrayList in the adapter,
+and modifies the ListView based on the Emotions in the ArrayList. 
+
+Our Emotion class stores the emotion as a string, along with a date string and comment string.
+
+Our Counter class holds a dictionary, where the Emotion string is the key, and the value is an integer of the number of that emotion.
+We can call increment(emotion) to increment the value in the dictionary.
+
