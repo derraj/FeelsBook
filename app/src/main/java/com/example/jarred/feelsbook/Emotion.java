@@ -35,8 +35,8 @@ public class Emotion implements Serializable{
     }
 
     public String toString(){
-        return ("Emotion: "+this.getEmotion() + " Date: " + this.getDate()
-        + " Comment : " + this.getComment());
+        return ("Emotion: "+this.getEmotion() + "\n Date: " + this.getDate()
+        + "\n Comment : " + this.getComment());
     }
 
 }

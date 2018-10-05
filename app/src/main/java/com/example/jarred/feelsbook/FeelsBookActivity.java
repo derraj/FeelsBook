@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FeelsBookActivity extends AppCompatActivity {
-    public ArrayList<Emotion> emoList = new ArrayList<>();
+    public ArrayList<Emotion> emoList;
     public List<String> emotionList = Arrays.asList("Surprise", "Fear", "Sad","Joy","Anger","Love");
     public Counter count;
     public TextView surpriseNum,sadNum,joyNum,angerNum,loveNum,fearNum;
@@ -26,7 +27,9 @@ public class FeelsBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feels_book);
         //count = new Counter(emotionList);
-        loadData();
+        //emoList = new ArrayList<>();
+        emoList = loadData();
+
 
 
         Button surpriseBtn = (Button) findViewById(R.id.surpriseBtn);
@@ -58,7 +61,9 @@ public class FeelsBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String tagString = (String) v.getTag(); // tagString is the emotion in str format
-                Emotion emotion = new Emotion(tagString, "Message");
+
+                EditText message = (EditText)findViewById(R.id.message);
+                Emotion emotion = new Emotion(tagString, message.getText().toString());
                 emoList.add(emotion);
                 count.increment(tagString);
                 saveData();
@@ -93,24 +98,49 @@ public class FeelsBookActivity extends AppCompatActivity {
 
     }
 
+    // Save count object and emoList array list
     private void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         Gson gson = new Gson();
         String json = gson.toJson(count);
         editor.putString("counter object", json);
         editor.apply();
+
+        String json2 = gson.toJson(emoList);
+        editor.putString("emotion object list", json2);
+        editor.apply();
     }
 
-    private void loadData(){
+    // Load count variable and emoList (emoList returned as array list)
+    public ArrayList<Emotion> loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+
         Gson gson = new Gson();
         String json = sharedPreferences.getString("counter object", null);
         count = gson.fromJson(json, Counter.class);
 
+        String json2 = sharedPreferences.getString("emotion object list", null);
+        ArrayList<Emotion> emoList;
+
+        if (json2 == null){
+            emoList = new ArrayList<Emotion>();
+        }
+        else{
+            Type type = new TypeToken<ArrayList<Emotion>>() {}.getType();
+            emoList = gson.fromJson(json2, type);
+        }
+
+        return emoList;
+
     }
 
     private void update(){
+        if (count == null){
+            count = new Counter(emotionList);
+        }
+
         surpriseNum.setText(count.val("Surprise"));
         sadNum.setText(count.val("Sad"));
         joyNum.setText(count.val("Joy"));
