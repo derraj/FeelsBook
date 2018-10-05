@@ -1,7 +1,6 @@
 package com.example.jarred.feelsbook;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,11 +10,12 @@ public class Emotion implements Serializable, Comparable<Emotion>{
     private String date;
     private String comment;
     private String emotion;
-
+    // sdf is our desired date format
+    // https://stackoverflow.com/questions/36114426/java-lang-illegalargumentexception-class-java-text-decimalformat-declares-multi
+    private transient SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     // Handled date with help from https://stackoverflow.com/a/27657965
     // The rest of the sorting code is in ListActivity.updateDate();
     public int compareTo(Emotion o) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             return sdf.parse(this.getDate()).compareTo(sdf.parse(o.getDate()));
         } catch (ParseException e) {
@@ -24,16 +24,13 @@ public class Emotion implements Serializable, Comparable<Emotion>{
     }
 
     public Emotion(String emotion, String comment){
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        this.date = sdf.format( new Date());
+        this.date = sdf.format( new Date());    // get current date and change format
         this.comment = comment;
         this.emotion = emotion;
     }
 
     public void setDate(String date_string){
         this.date = date_string;
-
     }
 
     public String getDate() {

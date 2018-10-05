@@ -1,7 +1,5 @@
 package com.example.jarred.feelsbook;
 
-import android.support.v7.app.AppCompatActivity;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +15,12 @@ public class Counter implements Serializable{
         for (String o : this.emotionList) this.count.put(o,0);
     }
 
+    // increment the counter based off emotion given as attribute
     public void increment(String emotion){
         this.count.put(emotion, this.count.get(emotion)+1);
     }
 
+    // return string value of the count
     public String val(String emotion){
         return this.count.get(emotion).toString();
     }

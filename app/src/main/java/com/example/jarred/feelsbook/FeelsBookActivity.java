@@ -29,11 +29,8 @@ public class FeelsBookActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feels_book);
-        //count = new Counter(emotionList);
-        //emoList = new ArrayList<>();
+
         emoList = loadData();
-
-
 
         Button surpriseBtn = (Button) findViewById(R.id.surpriseBtn);
         Button fearBtn = (Button) findViewById(R.id.fearBtn);
@@ -52,6 +49,7 @@ public class FeelsBookActivity extends AppCompatActivity {
 
         update();
 
+        // give buttons string tags, to pass to Emotion class
         surpriseBtn.setTag("Surprise");
         fearBtn.setTag("Fear");
         sadBtn.setTag("Sad");
@@ -73,14 +71,8 @@ public class FeelsBookActivity extends AppCompatActivity {
             }
         };
 
-        surpriseBtn.setOnClickListener(onClickListener);
-        fearBtn.setOnClickListener(onClickListener);
-        sadBtn.setOnClickListener(onClickListener);
-        joyBtn.setOnClickListener(onClickListener);
-        angerBtn.setOnClickListener(onClickListener);
-        loveBtn.setOnClickListener(onClickListener);
 
-
+        // Open ListActivity
         View.OnClickListener historyListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,10 +88,12 @@ public class FeelsBookActivity extends AppCompatActivity {
         };
 
         historyBtn.setOnClickListener(historyListener);
-
-
-
-
+        surpriseBtn.setOnClickListener(onClickListener);
+        fearBtn.setOnClickListener(onClickListener);
+        sadBtn.setOnClickListener(onClickListener);
+        joyBtn.setOnClickListener(onClickListener);
+        angerBtn.setOnClickListener(onClickListener);
+        loveBtn.setOnClickListener(onClickListener);
     }
 
     // Save count object and emoList array list
@@ -119,13 +113,16 @@ public class FeelsBookActivity extends AppCompatActivity {
     }
 
     // Load count variable and emoList (emoList returned as array list)
+    // Create new list of emotions if no past data found
     public ArrayList<Emotion> loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-
         Gson gson = new Gson();
+
+        // load counter object
         String json = sharedPreferences.getString("counter object", null);
         count = gson.fromJson(json, Counter.class);
 
+        // load list of emotion objects
         String json2 = sharedPreferences.getString("emotion object list", null);
         ArrayList<Emotion> emoList;
 
@@ -136,11 +133,11 @@ public class FeelsBookActivity extends AppCompatActivity {
             Type type = new TypeToken<ArrayList<Emotion>>() {}.getType();
             emoList = gson.fromJson(json2, type);
         }
-
         return emoList;
 
     }
 
+    // update Counter when emotion list is updated
     private void update(){
         count = new Counter(emotionList);
 
@@ -148,6 +145,7 @@ public class FeelsBookActivity extends AppCompatActivity {
             count.increment(e.getEmotion());
         }
 
+        // update text views that display the emotion count
         surpriseNum.setText(count.val("Surprise"));
         sadNum.setText(count.val("Sad"));
         joyNum.setText(count.val("Joy"));

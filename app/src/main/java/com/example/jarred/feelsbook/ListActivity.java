@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +17,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.google.gson.Gson;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -44,6 +36,9 @@ public class ListActivity extends AppCompatActivity {
     public Counter count;
     private EditText result;
     public ListView history;
+
+    // Set your date format here
+    public DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     // When back button is pressed, reload FeelsBookActivity
     @Override
@@ -62,28 +57,9 @@ public class ListActivity extends AppCompatActivity {
         emoString = emoList.stream().map(Emotion::toString).collect(Collectors.toList());
         updateDate();
 
-
-        Log.d("list", emoString.toString());
-
         history = (ListView) findViewById(R.id.listview);
-
         ArrayAdapter<String> adapter = new MyListAdapter(this, R.layout.list_item, emoString);
         history.setAdapter(adapter);
-
-        /*
-        // Go back to FeelsBookActivity
-        Button backBtn = (Button) findViewById(R.id.backBtn);
-        View.OnClickListener backListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goBack = new Intent(getApplicationContext(), FeelsBookActivity.class);
-                startActivity(goBack);
-            }
-        };
-        backBtn.setOnClickListener(backListener);
-        */
-
-
     }
 
 
@@ -108,17 +84,12 @@ public class ListActivity extends AppCompatActivity {
             }
             mainViewholder = (ViewHolder) convertView.getTag();
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                // remove emotion from emotion list and string from string list
                 @Override
                 public void onClick(View v) {
-
-                    //String emo_string = emoList.get(position).getEmotion();
-                    //count.decrement(emo_string);
-
-
                     emoList.remove(position);
                     emoString.remove(position);
                     notifyDataSetChanged();
-
                     saveData();
 
                 }
@@ -126,6 +97,7 @@ public class ListActivity extends AppCompatActivity {
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
 
                 // Pop up created with help from https://stackoverflow.com/a/35861189
+                // Edit button opens a pop-up window from custom_dialog.xml
                 @Override
                 public void onClick(View v) {
                     LayoutInflater li = LayoutInflater.from(context);
@@ -134,7 +106,6 @@ public class ListActivity extends AppCompatActivity {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                             context);
 
-                    // set prompts.xml to alertdialog builder
                     alertDialogBuilder.setView(promptsView);
 
                     final EditText userInput = (EditText) promptsView
@@ -142,12 +113,15 @@ public class ListActivity extends AppCompatActivity {
 
                     alertDialogBuilder
                             .setCancelable(false)
+
+                            // creates button that modifies the date with values
+                            // from user input
                             .setPositiveButton("Edit Date",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
                                             try{
-                                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                                                Date parsedDate = formatter.parse(userInput.getText().toString());
+
+                                                Date parsedDate = sdf.parse(userInput.getText().toString());
 
                                                 // run next code if above code causes no errors
                                                 emoList.get(position).setDate(userInput.getText().toString());
@@ -165,12 +139,17 @@ public class ListActivity extends AppCompatActivity {
 
                                         }
                                     })
+
+                            // creates a button that closes pop-up
                             .setNeutralButton("Cancel",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
                                             dialog.cancel();
                                         }
                                     })
+
+                            // creates a button that modifies the comment with values
+                            // from user input
                             .setNegativeButton("Edit Comment",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
@@ -203,6 +182,8 @@ public class ListActivity extends AppCompatActivity {
         Button deleteBtn;
         Button editBtn;
     }
+
+    // save emotion list
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -214,13 +195,16 @@ public class ListActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    // sort the list of Emotions by date.
+    // Once sorted, list of Strings is emptied, and new list of strings are pushed into it
+    // using a temporary list. This is done since our adapter is using that list, so we can't
+    // create a new one.
     public void updateDate(){
         Collections.sort(emoList, new Comparator<Emotion>() {
-            DateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm");//or your pattern
             @Override
             public int compare(Emotion o1, Emotion o2) {
                 try {
-                    return f.parse(o1.getDate()).compareTo(f.parse(o2.getDate()));
+                    return sdf.parse(o1.getDate()).compareTo(sdf.parse(o2.getDate()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }
@@ -234,22 +218,5 @@ public class ListActivity extends AppCompatActivity {
         emoString.addAll(newList);
 
     }
-
-    public Date validateDateFormat(String dateToValdate) {
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        //To make strict date format validation
-        formatter.setLenient(false);
-        Date parsedDate = null;
-        try {
-            parsedDate = formatter.parse(dateToValdate);
-            System.out.println("++validated DATE TIME ++"+formatter.format(parsedDate));
-
-        } catch (ParseException e) {
-            //Handle exception
-        }
-        return parsedDate;
-    }
-
 }
 
